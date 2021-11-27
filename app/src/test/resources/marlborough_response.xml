@@ -1,0 +1,11 @@
+<stopInfo created="2021-11-26T00:35:58" stop="Marlborough" stopAbv="MAR">
+    <message>Green Line services operating with delays</message>
+    <direction name="Inbound">
+        <tram destination="No Northbound Service" dueMins="" />
+    </direction>
+    <direction name="Outbound">
+        <tram dueMins="4" destination="Parnell" />
+        <tram dueMins="11" destination="Broombridge" />
+        <tram dueMins="18" destination="Parnell" />
+    </direction>
+</stopInfo>
