@@ -1,7 +1,7 @@
 package com.example.luas.data
 
 import com.example.luas.data.remote.RemoteDataSource
-import com.example.luas.model.BaseApiResponse
+import com.example.luas.data.remote.BaseApiResponse
 import com.example.luas.model.StopInfo
 import com.example.luas.utils.NetworkResult
 import dagger.hilt.android.scopes.ViewModelScoped
