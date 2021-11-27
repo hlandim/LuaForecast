@@ -14,7 +14,6 @@ class MockForecastResponse {
     companion object {
         val MARLBOROUGH = readFileFromResources("marlborough_response.xml")
         val STILLORGAN = readFileFromResources("stillorgan_response.xml")
-        val WRONG = "Exception: Invalid stop of SASDASDASDTI supplied"
 
         @Throws(IOException::class)
         fun readFileFromResources(fileName: String): StopInfo {

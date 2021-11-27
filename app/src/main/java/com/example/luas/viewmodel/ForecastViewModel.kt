@@ -31,14 +31,23 @@ class ForecastViewModel @Inject constructor(
     init {
         selectStop()
         selectDirection()
-
         fetchData()
 
     }
 
     private fun fetchData() {
+        _response.value = NetworkResult.Loading()
         viewModelScope.launch(dispatcher) {
-            _response.value = repository.getStopForecast(selectedStop.name)
+            val result = repository.getStopForecast(selectedStop.name)
+            result.data?.let {
+                it.directions?.let { directions ->
+                    directions.retainAll { direction ->
+                        direction.name?.lowercase()
+                            .equals(selectedDirection.name.lowercase())
+                    }
+                }
+            }
+            _response.postValue(result)
         }
     }
 

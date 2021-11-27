@@ -101,13 +101,13 @@ class ForecastViewModelTest {
                     clock,
                     testDispatcher
                 )
-            val forecast = viewModel.response.value?.data
+            val forecasts = viewModel.response.value?.data
 
             // The Marlborough's Outbound forecast should not be empty
-            assertNotNull(forecast)
-            forecast?.let { info ->
-                assertEquals("Marlborough", info.stop)
-                checkNotEmptyForecast(info, "Outbound")
+            assertNotNull(forecasts)
+            forecasts?.let { forecast ->
+                assertEquals("Marlborough", forecast.stop)
+                checkNotEmptyForecast(forecast, "Outbound")
             }
         }
 
@@ -132,27 +132,28 @@ class ForecastViewModelTest {
                     clock,
                     testDispatcher
                 )
-            val forecast = viewModel.response.value?.data
+            val forecasts = viewModel.response.value?.data
 
             // The Stillorgan's Inbound forecast should not be empty
-            assertNotNull(forecast)
-            forecast?.let { info ->
-                assertEquals("Stillorgan", info.stop)
-                checkNotEmptyForecast(info, "Inbound")
+            assertNotNull(forecasts)
+            forecasts?.let { forecast ->
+                assertEquals("Stillorgan", forecast.stop)
+                checkNotEmptyForecast(forecast, "Inbound")
             }
         }
 
     private fun checkNotEmptyForecast(info: StopInfo, direction: String) {
         assertNotNull(info.directions)
         info.directions?.let { directions ->
+            assertTrue(directions.size == 1)
             // Get the required direction Outbound/Inbound
-            val requiredDirection = directions.filter { it.name.equals(direction) }
+            val requiredDirection = directions[0]
             assertNotNull(requiredDirection)
-            assertTrue(requiredDirection.size == 1)
+            // Check if it is the correct direction
+            assertEquals(direction, requiredDirection.name)
             // Get trams for the required direction
-            val directionTrams = requiredDirection[0].trams
-            assertNotNull(directionTrams)
-            directionTrams?.let { trams ->
+            assertNotNull(requiredDirection.trams)
+            requiredDirection.trams?.let { trams ->
                 assertTrue(trams.size > 0)
                 // Check if it has at least one valid tram
                 assertNotEquals("", trams[0].dueMin)

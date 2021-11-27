@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Luas</string>
+    <string name="no_result_found">No result found.</string>
+    <string name="error">Ops!, Something went wrong.</string>
 </resources>
