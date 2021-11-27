@@ -1,4 +1,4 @@
-package com.example.luas.data.remote
+package com.example.luas.data
 
 import com.example.luas.utils.NetworkResult
 import retrofit2.Response
