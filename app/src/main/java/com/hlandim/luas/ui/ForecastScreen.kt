@@ -204,7 +204,7 @@ private fun ErrorMsg(msg: String) {
 @ExperimentalFoundationApi
 @Preview(
     name = "Forecast View",
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
     showBackground = true
 )
 @Composable
