@@ -45,7 +45,7 @@ import java.time.Clock
 
 @ExperimentalFoundationApi
 @Composable
-fun ForecastView(forecastViewModel: ForecastViewModel) {
+fun ForecastScreen(forecastViewModel: ForecastViewModel) {
 
     Scaffold(
         topBar = { MyTopBar(forecastViewModel) },

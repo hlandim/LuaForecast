@@ -5,7 +5,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.ExperimentalFoundationApi
-import com.hlandim.luas.ui.ForecastView
+import com.hlandim.luas.ui.ForecastScreen
 import com.hlandim.luas.viewmodel.ForecastViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ForecastView(forecastViewModel)
+            ForecastScreen(forecastViewModel)
         }
     }
 }
