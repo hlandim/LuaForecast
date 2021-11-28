@@ -35,7 +35,7 @@ class ForecastViewModel @Inject constructor(
 
     }
 
-    private fun fetchData() {
+    fun fetchData() {
         _response.value = NetworkResult.Loading()
         viewModelScope.launch(dispatcher) {
             val result = repository.getStopForecast(selectedStop.name)

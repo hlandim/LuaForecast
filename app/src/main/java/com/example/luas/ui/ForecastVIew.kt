@@ -1,5 +1,6 @@
 package com.example.luas.ui
 
+import android.app.Application
 import android.content.res.Configuration
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -9,29 +10,68 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.AndroidViewModel
 import com.example.luas.R
+import com.example.luas.data.Repository
+import com.example.luas.data.remote.ForecastService
+import com.example.luas.data.remote.RemoteDataSource
 import com.example.luas.model.Direction
 import com.example.luas.model.StopInfo
 import com.example.luas.model.Tram
+import com.example.luas.ui.MockViewModel.Companion.STOP_INFO
 import com.example.luas.ui.theme.LuasAppTheme
 import com.example.luas.utils.NetworkResult
 import com.example.luas.viewmodel.ForecastViewModel
+import kotlinx.coroutines.Dispatchers
+import retrofit2.Response
+import java.time.Clock
 
 @ExperimentalFoundationApi
 @Composable
 fun ForecastView(forecastViewModel: ForecastViewModel) {
+
+    Scaffold(
+        topBar = { MyTopBar(forecastViewModel) },
+        content = { ForecastListContent(forecastViewModel) }
+    )
+}
+
+@Composable
+fun MyTopBar(forecastViewModel: ForecastViewModel) {
+    TopAppBar(
+        title = { Text(stringResource(id = R.string.app_name)) },
+        actions = {
+            IconButton(onClick = { forecastViewModel.fetchData() }) {
+                Icon(
+                    painterResource(R.drawable.refresh),
+                    stringResource(id = R.string.refresh),
+                )
+            }
+        }
+    )
+}
+
+
+@ExperimentalFoundationApi
+@Composable
+fun ForecastListContent(forecastViewModel: ForecastViewModel) {
     val networkResult by forecastViewModel.response.observeAsState()
     LuasAppTheme {
         networkResult?.let { result ->
@@ -83,6 +123,7 @@ private fun ForecastList(stopInfo: StopInfo) {
     }
 
 }
+
 
 @Composable
 private fun MainHeader(stopInfo: StopInfo) {
@@ -166,9 +207,28 @@ private fun ErrorMsg(msg: String) {
     showBackground = true
 )
 @Composable
-private fun PreviewForecastView() {
-    ForecastList(
-        StopInfo(
+private fun PreviewForecastView(
+    forecastViewModel: ForecastViewModel = MockViewModel(Application()).composeViewModel
+) {
+    Scaffold(
+        topBar = { MyTopBar(forecastViewModel) },
+        content = { ForecastList(STOP_INFO) }
+//        content = { NoResult() }
+//        content = { LoadingView() }
+    )
+
+}
+
+class MockViewModel(application: Application) : AndroidViewModel(application), ForecastService {
+    val composeViewModel = ForecastViewModel(
+        Application(),
+        Repository(RemoteDataSource(this)),
+        Clock.systemDefaultZone(),
+        Dispatchers.Main
+    )
+
+    companion object {
+        val STOP_INFO = StopInfo(
             "Stillorgan",
             mutableListOf(
                 Direction(
@@ -190,5 +250,10 @@ private fun PreviewForecastView() {
                 )
             )
         )
-    )
+    }
+
+    override suspend fun getStopForecast(stop: String): Response<StopInfo> {
+        return Response.success(STOP_INFO)
+    }
+
 }
