@@ -9,13 +9,13 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.example.luas"
+        applicationId "com.hlandim.luas"
         minSdk 28
         targetSdk 31
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "com.example.luas.util.CustomTestRunner"
+        testInstrumentationRunner "com.hlandim.luas.util.CustomTestRunner"
     }
 
     buildFeatures {
