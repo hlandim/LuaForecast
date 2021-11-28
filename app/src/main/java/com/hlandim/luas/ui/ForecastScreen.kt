@@ -47,14 +47,17 @@ import java.time.Clock
 @Composable
 fun ForecastScreen(forecastViewModel: ForecastViewModel) {
 
-    Scaffold(
-        topBar = { MyTopBar(forecastViewModel) },
-        content = { ForecastListContent(forecastViewModel) }
-    )
+    LuasAppTheme {
+        Scaffold(
+            topBar = { MyTopBar(forecastViewModel) },
+            content = { ForecastListContent(forecastViewModel) }
+        )
+    }
 }
 
 @Composable
 fun MyTopBar(forecastViewModel: ForecastViewModel) {
+
     TopAppBar(
         title = { Text(stringResource(id = R.string.app_name)) },
         actions = {
@@ -73,7 +76,7 @@ fun MyTopBar(forecastViewModel: ForecastViewModel) {
 @Composable
 fun ForecastListContent(forecastViewModel: ForecastViewModel) {
     val networkResult by forecastViewModel.response.observeAsState()
-    LuasAppTheme {
+
         networkResult?.let { result ->
             when (result) {
                 is NetworkResult.Success -> {
@@ -95,9 +98,6 @@ fun ForecastListContent(forecastViewModel: ForecastViewModel) {
                 }
             }
         }
-
-
-    }
 }
 
 @ExperimentalFoundationApi
@@ -203,19 +203,21 @@ private fun ErrorMsg(msg: String) {
 @ExperimentalFoundationApi
 @Preview(
     name = "Forecast View",
-    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
     showBackground = true
 )
 @Composable
 private fun PreviewForecastView(
     forecastViewModel: ForecastViewModel = MockViewModel(Application()).composeViewModel
 ) {
-    Scaffold(
-        topBar = { MyTopBar(forecastViewModel) },
-        content = { ForecastList(STOP_INFO) }
+    LuasAppTheme {
+        Scaffold(
+            topBar = { MyTopBar(forecastViewModel) },
+            content = { ForecastList(STOP_INFO) }
 //        content = { NoResult() }
 //        content = { LoadingView() }
-    )
+        )
+    }
 
 }
 
