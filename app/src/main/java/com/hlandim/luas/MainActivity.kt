@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     private val forecastViewModel: ForecastViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide();
         setContent {
             ForecastScreen(forecastViewModel)
         }

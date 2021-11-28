@@ -77,27 +77,27 @@ fun MyTopBar(forecastViewModel: ForecastViewModel) {
 fun ForecastListContent(forecastViewModel: ForecastViewModel) {
     val networkResult by forecastViewModel.response.observeAsState()
 
-        networkResult?.let { result ->
-            when (result) {
-                is NetworkResult.Success -> {
-                    if (result.data == null) {
-                        NoResult()
-                    } else {
-                        ForecastList(result.data)
-                    }
-                }
-                is NetworkResult.Error -> {
-                    if (result.message != null) {
-                        ErrorMsg(msg = result.message)
-                    } else {
-                        ErrorMsg(msg = stringResource(id = R.string.error))
-                    }
-                }
-                is NetworkResult.Loading -> {
-                    LoadingView()
+    networkResult?.let { result ->
+        when (result) {
+            is NetworkResult.Success -> {
+                if (result.data == null) {
+                    NoResult()
+                } else {
+                    ForecastList(result.data)
                 }
             }
+            is NetworkResult.Error -> {
+                if (result.message != null) {
+                    ErrorMsg(msg = result.message)
+                } else {
+                    ErrorMsg(msg = stringResource(id = R.string.error))
+                }
+            }
+            is NetworkResult.Loading -> {
+                LoadingView()
+            }
         }
+    }
 }
 
 @ExperimentalFoundationApi
@@ -168,10 +168,11 @@ private fun ForecastItem(tram: Tram) {
                 )
 
             }
-            tram.dueMin?.let {
-                val text = if (it == "DUE") "" else "${it}min"
+            if (!tram.dueMin.isNullOrEmpty()) {
+                val text = if (tram.dueMin == "DUE") "" else "${tram.dueMin}min"
                 Text(text = text)
             }
+
 
         }
     }
