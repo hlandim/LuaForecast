@@ -1,9 +1,6 @@
-# LUAS Forecasting
-RIM Employee LUAS App
+# RIM Employee LUAS App
 
-
-Architecture
-MVVM
+Architecture used: MVVM + Dependencie Injenction + Jectpeack Compose.
 
 - Communications between View <-> ViewModel are made using Android Jetpack Compose and LiveData. 
 - Using [Retrofit](https://square.github.io/retrofit/) library to create interfaces with [LUAS Forecasting API](https://data.gov.ie/dataset/luas-forecasting-api).
