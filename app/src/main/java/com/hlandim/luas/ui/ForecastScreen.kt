@@ -5,13 +5,13 @@ import android.content.res.Configuration
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -107,6 +107,7 @@ fun ForecastListContent(forecastViewModel: ForecastViewModel) {
 private fun ForecastList(stopInfo: StopInfo) {
     if (stopInfo.directions != null) {
         LazyColumn(modifier = Modifier
+            .padding(all = 10.dp)
             .semantics {
                 contentDescription = "Forecast List"
             }) {
@@ -163,11 +164,15 @@ private fun MainHeader(stopInfo: StopInfo) {
 
 @Composable
 private fun ForecastItem(tram: Tram) {
-    Surface(elevation = 2.dp) {
+    Surface(
+        shape = MaterialTheme.shapes.large,
+        elevation = 2.dp
+    ) {
         Row(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(10.dp)
+                .fillMaxWidth()
+                .padding(all = 10.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             tram.destination?.let {
                 Text(
