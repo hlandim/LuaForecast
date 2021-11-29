@@ -8,3 +8,9 @@ Architecture used: MVVM + Dependencie Injenction + Jectpeack Compose.
 - Using [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) for Dependencies injection.
 - Using [Jectpack Compose](https://developer.android.com/jetpack/compose/) to create layout and automated test.
 - Handling network connection lost.
+
+### Images
+
+| Marlborough (Dark Theme) | Stillorgan (Light Theme)  |
+|---|---|
+| <img src="https://github.com/hlandim/LuaForecast/blob/master/imgs/Marlborough.png" width="400"/>    |   |
