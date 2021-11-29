@@ -21,4 +21,9 @@ class MainActivity : AppCompatActivity() {
             ForecastScreen(forecastViewModel)
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        forecastViewModel.fetchData()
+    }
 }

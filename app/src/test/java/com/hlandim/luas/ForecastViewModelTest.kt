@@ -91,6 +91,7 @@ class ForecastViewModelTest {
                     clock,
                     testDispatcher
                 )
+            viewModel.fetchData()
             val forecasts = viewModel.response.value?.data
 
             // The Marlborough's Outbound forecast should not be empty
@@ -122,6 +123,7 @@ class ForecastViewModelTest {
                     clock,
                     testDispatcher
                 )
+            viewModel.fetchData()
             val forecasts = viewModel.response.value?.data
 
             // The Stillorgan's Inbound forecast should not be empty

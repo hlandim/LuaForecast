@@ -28,14 +28,9 @@ class ForecastViewModel @Inject constructor(
     private lateinit var selectedDirection: TramDirection
     val response: LiveData<NetworkResult<StopInfo>> = _response
 
-    init {
+    fun fetchData() {
         selectStop()
         selectDirection()
-        fetchData()
-
-    }
-
-    fun fetchData() {
         _response.value = NetworkResult.Loading()
         viewModelScope.launch(dispatcher) {
             val result = repository.getStopForecast(selectedStop.name)
