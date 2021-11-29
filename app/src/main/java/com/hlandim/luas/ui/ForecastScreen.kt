@@ -181,8 +181,8 @@ private fun ForecastItem(tram: Tram) {
                 )
 
             }
-            if (!tram.dueMin.isNullOrEmpty()) {
-                val text = if (tram.dueMin == "DUE") "" else "${tram.dueMin}min"
+            tram.dueMin?.let {
+                val text = if (it == "DUE") it else "${it}min"
                 Text(text = text)
             }
 
