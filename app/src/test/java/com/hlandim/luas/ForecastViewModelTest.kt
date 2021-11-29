@@ -2,16 +2,14 @@ package com.hlandim.luas
 
 import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.hlandim.luas.data.MockForecastResponse
+import com.hlandim.luas.data.FakeRepositoryImp
 import com.hlandim.luas.data.Repository
 import com.hlandim.luas.data.remote.ForecastService
 import com.hlandim.luas.data.remote.RemoteDataSource
 import com.hlandim.luas.model.StopInfo
 import com.hlandim.luas.util.MainCoroutineRule
 import com.hlandim.luas.viewmodel.ForecastViewModel
-import com.hlandim.luas.viewmodel.TramStop
 import io.mockk.MockKAnnotations
-import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
@@ -29,7 +27,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import retrofit2.Response
 import java.time.Clock
 import java.time.LocalDate
 import java.time.LocalTime
@@ -65,14 +62,7 @@ class ForecastViewModelTest {
         Dispatchers.setMain(testDispatcher)
 
         remoteDataSource = RemoteDataSource(forecastService)
-        repository = Repository(remoteDataSource)
-
-        coEvery { forecastService.getStopForecast(TramStop.MAR.name) } returns Response.success(
-            MockForecastResponse.MARLBOROUGH
-        )
-        coEvery { forecastService.getStopForecast(TramStop.STI.name) } returns Response.success(
-            MockForecastResponse.STILLORGAN
-        )
+        repository = FakeRepositoryImp()
 
         clock = mockk()
     }

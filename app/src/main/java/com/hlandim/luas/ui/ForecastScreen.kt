@@ -24,12 +24,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.AndroidViewModel
 import com.hlandim.luas.R
-import com.hlandim.luas.data.Repository
+import com.hlandim.luas.data.RepositoryImp
 import com.hlandim.luas.data.remote.ForecastService
 import com.hlandim.luas.data.remote.RemoteDataSource
 import com.hlandim.luas.model.Direction
@@ -64,7 +66,7 @@ fun MyTopBar(forecastViewModel: ForecastViewModel) {
             IconButton(onClick = { forecastViewModel.fetchData() }) {
                 Icon(
                     painterResource(R.drawable.refresh),
-                    stringResource(id = R.string.refresh),
+                    stringResource(id = R.string.refresh)
                 )
             }
         }
@@ -104,7 +106,10 @@ fun ForecastListContent(forecastViewModel: ForecastViewModel) {
 @Composable
 private fun ForecastList(stopInfo: StopInfo) {
     if (stopInfo.directions != null) {
-        LazyColumn {
+        LazyColumn(modifier = Modifier
+            .semantics {
+                contentDescription = "Forecast List"
+            }) {
             stickyHeader {
                 MainHeader(stopInfo)
             }
@@ -133,7 +138,10 @@ private fun MainHeader(stopInfo: StopInfo) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(5.dp),
+                        .padding(5.dp)
+                        .semantics {
+                            contentDescription = "Stop title"
+                        },
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center
 
@@ -225,7 +233,7 @@ private fun PreviewForecastView(
 class MockViewModel(application: Application) : AndroidViewModel(application), ForecastService {
     val composeViewModel = ForecastViewModel(
         Application(),
-        Repository(RemoteDataSource(this)),
+        RepositoryImp(RemoteDataSource(this)),
         Clock.systemDefaultZone(),
         Dispatchers.Main
     )
