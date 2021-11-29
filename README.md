@@ -13,4 +13,4 @@ Architecture used: MVVM + Dependencie Injenction + Jectpeack Compose.
 
 | Marlborough (Dark Theme) | Stillorgan (Light Theme)  |
 |---|---|
-| <img src="https://github.com/hlandim/LuaForecast/blob/master/imgs/Marlborough.png" width="400"/>    |   |
+| <img src="https://github.com/hlandim/LuaForecast/blob/master/imgs/Marlborough.png" width="300"/>    |  <img src="https://github.com/hlandim/LuaForecast/blob/master/imgs/Stillorgan.png" width="300"/> |
