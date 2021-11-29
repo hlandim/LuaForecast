@@ -166,7 +166,8 @@ private fun MainHeader(stopInfo: StopInfo) {
 private fun ForecastItem(tram: Tram) {
     Surface(
         shape = MaterialTheme.shapes.large,
-        elevation = 2.dp
+        elevation = 2.dp,
+        modifier = Modifier.padding(all = 2.dp)
     ) {
         Row(
             modifier = Modifier
@@ -182,7 +183,7 @@ private fun ForecastItem(tram: Tram) {
 
             }
             tram.dueMin?.let {
-                val text = if (it == "DUE") it else "${it}min"
+                val text = if (it.lowercase() == "due") it else "${it}min"
                 Text(text = text)
             }
 
@@ -256,7 +257,7 @@ class MockViewModel(application: Application) : AndroidViewModel(application), F
                         ),
                         Tram(
                             destination = "Parnell",
-                            dueMin = "11"
+                            dueMin = "DUE"
                         ),
                         Tram(
                             destination = "Parnell",
